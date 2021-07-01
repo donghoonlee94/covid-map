@@ -48,3 +48,19 @@ li a:hover:not(.active) {
   border: 1px solid black;
   border-radius: 50%;
 }
+
+.info-window_wrap {
+  background: white;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.info-window_title {
+  font-size: 15px;
+  font-weight: bolder;
+}
+
+.info-window_address {
+  font-size: 13px;
+  font-weight: normal;
+}
