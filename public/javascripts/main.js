@@ -27,5 +27,8 @@ for (let i in data) {
   let marker = new naver.maps.Marker({
     map: map,
     position: latlng,
+    icon: {
+      content: `<div class="marker"></div>`,
+    },
   });
 }
