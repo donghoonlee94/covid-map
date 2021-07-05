@@ -7,6 +7,19 @@
 var app = require('../app');
 var debug = require('debug')('covid-map:server');
 var http = require('http');
+const mongoose = require('mongoose');
+const userConfig = require('../config/userConfig.json');
+
+let db = mongoose.connection;
+db.on('error', console.error);
+db.once('open', () => {
+  console.log('Connected to mongo Server');
+});
+
+mongoose.connect(
+  `mongodb+srv://ehdgns8052:${userConfig.PW}@covidmap.zf1sj.mongodb.net/covidmap?retryWrites=true&w=majority`,
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
 
 /**
  * Get port from environment and store in Express.
