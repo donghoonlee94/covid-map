@@ -33,9 +33,25 @@ function searchPlaces() {
   ps.keywordSearch(keyword, placesSearchCB);
 }
 
+function removeAllChildNodes(el) {
+  while (el.hasChildNodes()) {
+    el.removeChild(el.lastChild);
+  }
+}
+
+function removeMarker() {
+  for (let i = 0; i < markerList.length; i++) {
+    markerList[i].setMap(null);
+  }
+  markerList = [];
+}
+
 function displayPlaces(data) {
   let listEl = document.getElementById('placesList');
   let bounds = new daum.maps.LatLngBounds();
+
+  removeAllChildNodes(listEl);
+  removeMarker();
 
   for (let i = 0; i < data.length; i++) {
     let lat = data[i].y;
