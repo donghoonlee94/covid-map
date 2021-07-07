@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const locationModel = require('../model/location');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -10,19 +11,28 @@ router.get('/upload', (req, res, next) => {
   res.render('upload');
 });
 
-router.get('/test', (req, res, next) => {
-  console.log('테스트 완료');
-  res.json({
-    message: 'res 완료',
-  });
-});
+router.post('/location', (req, res, next) => {
+  const { title, address, lat, lng } = req.body;
+  let location = new locationModel();
+  location.title = title;
+  location.address = address;
+  location.lat = lat;
+  location.lng = lng;
 
-router.post('/test2', (req, res, next) => {
-  const test = req.body.test;
-  console.log(test);
-  res.json({
-    message: 'post 완료',
-  });
+  location
+    .save()
+    .then((result) => {
+      console.log(result);
+      res.json({
+        message: 'success!',
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json({
+        message: 'error',
+      });
+    });
 });
 
 module.exports = router;
