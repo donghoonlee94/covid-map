@@ -14,18 +14,34 @@ let markerList = [];
 
 let ps = new daum.maps.services.Places();
 
-function displayInfoWindow(marker, place_name, address_name, lat, lng) {
+function displayInfoWindow(marker, title, address, lat, lng) {
   let content = `
     <div style="padding:25px;">
-      ${place_name} <br>
-      ${address_name} <br>
-      <button>등록</button>
+      ${title} <br>
+      ${address} <br>
+      <button onClick="onSubmit('${title}', '${address}', ${lat}, ${lng})">등록</button>
     </div>
   `;
 
   map.panTo(marker.getPosition());
   infoWindow.setContent(content);
   infoWindow.open(map, marker);
+}
+
+function onSubmit(title, address, lat, lng) {
+  $.ajax({
+    url: '/location',
+    data: { title, address, lat, lng },
+    type: 'POST',
+  })
+    .done((res) => {
+      console.log('데이터 요청 성공', res);
+      alert('성공');
+    })
+    .fail((err) => {
+      console.log('데이터 요청 실패', error);
+      alert('실패', err);
+    });
 }
 
 function searchPlaces() {
