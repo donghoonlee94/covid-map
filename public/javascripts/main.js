@@ -66,4 +66,30 @@ $.ajax({
     naver.maps.Event.addListener(markerList[i], 'click', getClickHandler(i));
     naver.maps.Event.addListener(map, 'click', getClickMap(i));
   }
+
+  const cluster1 = {
+    content: `<div class="cluster1"></div>`,
+  };
+
+  const cluster2 = {
+    content: `<div class="cluster2"></div>`,
+  };
+
+  const cluster3 = {
+    content: `<div class="cluster3"></div>`,
+  };
+
+  const markerClustering = new MarkerClustering({
+    minClusterSize: 2,
+    maxZoom: 12,
+    map,
+    markers: markerList,
+    disableClickZoom: false,
+    gridSize: 20,
+    icons: [cluster1, cluster2, cluster3],
+    indexGernerator: [2, 5, 10],
+    stylingFunction: (clusterMarker, count) => {
+      $(clusterMarker.getElement()).find('div:first-child').text(count);
+    },
+  });
 });
